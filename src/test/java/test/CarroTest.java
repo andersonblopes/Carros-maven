@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.livro.domain.Carro;
@@ -14,7 +15,12 @@ import br.com.livro.domain.CarroService;
 
 public class CarroTest {
 
-	CarroService carroService = new CarroService();
+	private CarroService carroService;
+
+	@Before
+	public void inicio() {
+		carroService = (CarroService) SpringUtil.getInstance().getBean(CarroService.class);
+	}
 
 	@Test
 	public void listaCarros() {

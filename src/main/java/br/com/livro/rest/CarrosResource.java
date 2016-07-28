@@ -15,12 +15,13 @@ import javax.ws.rs.core.MediaType;
 import br.com.livro.domain.Carro;
 import br.com.livro.domain.CarroService;
 import br.com.livro.domain.Response;
+import test.SpringUtil;
 
 @Path("/carros")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class CarrosResource {
-	private CarroService carroService = new CarroService();
+	private CarroService carroService = (CarroService) SpringUtil.getInstance().getBean(CarroService.class);;
 
 	@GET
 	public List<Carro> get() {
