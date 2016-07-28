@@ -57,7 +57,6 @@ public class CarroTest {
 		assertEquals("Carro barato", c2.getDescricao());
 
 		carroService.delete(c.getId());
-		carroService.delete(c2.getId());
 
 		assertNull(carroService.getCarro(c.getId()));
 		assertNull(carroService.getCarro(c2.getId()));
