@@ -1,11 +1,10 @@
 package br.com.livro.domain;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class CarroService {
@@ -14,60 +13,31 @@ public class CarroService {
 	private CarroDAO dao;
 
 	public List<Carro> getCarros() {
-		List<Carro> carros;
-		try {
-			carros = dao.getCarros();
-			return carros;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return new ArrayList<Carro>();
-		}
+		List<Carro> carros = dao.getCarros();
+		return carros;
 	}
 
 	public Carro getCarro(Long id) {
-		try {
-			return dao.getCarroById(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return dao.getCarroById(id);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public boolean delete(Long id) {
-		try {
-			return dao.deleteCarro(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+		return dao.delete(id);
 	}
 
+	@Transactional(rollbackFor = Exception.class)
 	public boolean save(Carro c) {
-		try {
-			dao.saveCarro(c);
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+		dao.saveOrUpdate(c);
+		return true;
 	}
 
 	public List<Carro> findByName(String nome) {
-		try {
-			return dao.findByName(nome);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return dao.findByName(nome);
 	}
 
 	public List<Carro> findByTipo(String tipo) {
-		try {
-			return dao.findByTipo(tipo);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return dao.findByTipo(tipo);
 	}
 
 }
