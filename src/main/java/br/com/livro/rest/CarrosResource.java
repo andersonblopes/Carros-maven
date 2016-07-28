@@ -1,7 +1,5 @@
 package br.com.livro.rest;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -17,7 +15,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.io.IOUtils;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +23,7 @@ import org.springframework.stereotype.Component;
 import br.com.livro.domain.Carro;
 import br.com.livro.domain.CarroService;
 import br.com.livro.domain.Response;
+import br.com.livro.domain.UploadService;
 
 @Path("/carros")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -35,6 +33,9 @@ public class CarrosResource {
 
 	@Autowired
 	private CarroService carroService;
+
+	@Autowired
+	private UploadService uploadService;
 
 	@GET
 	public List<Carro> get() {
@@ -94,18 +95,10 @@ public class CarrosResource {
 				try {
 					// Salva o arquivo
 					String fileName = field.getFormDataContentDisposition().getFileName();
-					// Pasta temporária da JVM
-					File tmpDir = new File(System.getProperty("java.io.tmpdir"), "carros");
-					if (!tmpDir.exists()) {
-						// Cria a pasta se não existe
-						tmpDir.mkdir();
-					}
-					// Cria o arquivo
-					File file = new File(tmpDir, fileName);
-					FileOutputStream out = new FileOutputStream(file);
-					IOUtils.copy(in, out);
-					IOUtils.closeQuietly(out);
-					System.out.println("Arquivo: " + file);
+
+					String path = uploadService.upload(fileName, in);
+					System.out.println("Arquivo: " + path);
+
 					return Response.Ok("Arquivo recebido com sucesso");
 				} catch (IOException e) {
 					e.printStackTrace();
