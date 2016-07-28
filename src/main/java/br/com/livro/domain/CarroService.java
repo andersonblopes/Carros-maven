@@ -4,12 +4,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CarroService {
 
-	private CarroDAO dao = new CarroDAO();
+	@Autowired
+	private CarroDAO dao;
 
 	public List<Carro> getCarros() {
 		List<Carro> carros;
