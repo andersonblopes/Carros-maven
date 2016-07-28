@@ -12,6 +12,8 @@
 			<a href="<%=request.getContextPath()%>/rest/carros">/rest/carros</a>
 			<a href="<%=request.getContextPath()%>/rest/carros/1">/rest/carros/1</a>
 			<a href="<%=request.getContextPath()%>/upload.jsp">Upload de imagens</a>
+			<a href="<%=request.getContextPath()%>/toBase64.jsp">Base64 de imagens</a>
+			<a href="<%=request.getContextPath()%>/uploadBase64.jsp">Upload Base64 de imagens</a>
 		</pre>
 	</body>
 </html>
