@@ -14,7 +14,7 @@ public class HelloResource {
 	@Consumes(MediaType.TEXT_HTML)
 	@Produces(MediaType.TEXT_HTML + ";charset=utf-8")
 	public String helloHTML() {
-		return "<b>Ol� mundo HTML!</b>";
+		return "<b>Olá mundo HTML!</b>";
 	}
 
 	@GET
